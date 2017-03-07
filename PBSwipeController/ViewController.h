@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import "PBSwipeController.h"
 
+@interface ViewController : UIViewController<PBSwipeControllerDelegate>
+@property (nonatomic, strong)UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *buttonBar;
+@property (nonatomic) NSInteger currentPageIndex;
+@property (nonatomic) IBOutlet UITableView *mytableView;
 
 @end
-
