@@ -9,7 +9,11 @@
 #import "PBSwipeController.h"
 
 @interface PBSwipeController ()
-
+@property (nonatomic) BOOL boolOnce;
+@property (nonatomic) NSInteger currentIndex;
+@property (nonatomic, strong) UIView *buttonBar;
+@property (nonatomic, strong)UIScrollView *scrollView;
+@property (nonatomic, strong)UIPageViewController *pageController;
 @end
 
 @implementation PBSwipeController
@@ -38,6 +42,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     if (!self.boolOnce) {
         [self initiatPageController];
+
         self.boolOnce = YES;
     }
 }
@@ -49,6 +54,54 @@
     [_pageController setViewControllers:@[[viewControllersAr objectAtIndex:0]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
+-(UIScrollView*)addInitialObjects{
+    
+    // Add Scroolable object in section header
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width,40)];
+    _scrollView.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:144.0f/255.0f blue:255.0f/255.0f alpha:1];
+    for (int i = 0; i<_pagesNameArray.count; i++) {
+        UIButton  *button = [[UIButton alloc]init];
+        button.frame = CGRectMake(i*100, 0, 100, 40);
+        [_scrollView addSubview:button];
+        button.tag = i;
+        button.backgroundColor = [UIColor clearColor];
+        [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:[_pagesNameArray objectAtIndex:i] forState:UIControlStateNormal];
+        button.titleLabel.textColor = [UIColor blackColor];
+    }
+    [self setupSelector];
+    CGRect contentRect = CGRectZero;
+    for (UIView *view in _scrollView.subviews) {
+        contentRect = CGRectUnion(contentRect, view.frame);
+    }
+    _scrollView.contentSize = contentRect.size;
+    return _scrollView;
+}
+-(void)tapSegmentButtonAction:(UIButton *)button {
+    self.currentIndex = button.tag;
+    [self gotoPage:self.self.currentIndex];
+    [self.swipeDelegate swipeAtIndex:self.currentIndex];
+    [self animateScroller];
+}
+
+-(void)animateScroller{
+    NSInteger xValue = self.currentIndex * 100;
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         _buttonBar.frame = CGRectMake(xValue, _buttonBar.frame.origin.y, _buttonBar.frame.size.width, _buttonBar.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         [_scrollView scrollRectToVisible:_buttonBar.frame animated:YES];
+                     }];
+    [UIView commitAnimations];
+
+}
+-(void)setupSelector {
+    _buttonBar = [[UIView alloc]initWithFrame:CGRectMake(0, 36,100, 4)];
+    _buttonBar.backgroundColor = [UIColor orangeColor];
+    _buttonBar.alpha = 0.8;
+    [_scrollView addSubview:_buttonBar];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -110,17 +163,15 @@
 -(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
     if (completed) {
         self.currentIndex = ((ChildViewController*)[pageViewController.viewControllers lastObject]).pageIndex;
-        _curIndex = self.currentIndex;
         [self.swipeDelegate swipeAtIndex:self.currentIndex];
-        
+        [self animateScroller];
     }
 }
-
 -(void)gotoPage:(int)index{
     ChildViewController *viewController = [self viewControllerAtIndex:index];
     
     UIPageViewControllerNavigationDirection direction;
-    if(_curIndex <= index){
+    if(_currentIndex <= index){
         direction = UIPageViewControllerNavigationDirectionForward;
     }
     else
@@ -128,7 +179,7 @@
         direction = UIPageViewControllerNavigationDirectionReverse;
     }
     
-    if(_curIndex < index)
+    if(_currentIndex < index)
     {
         for (int i = 0; i <= index; i++)
         {
@@ -143,7 +194,7 @@
     }
     else
     {
-        for (int i = _curIndex; i >= index; i--)
+        for (int i = _currentIndex; i >= index; i--)
         {
             if (i == index) {
                 [_pageController setViewControllers:@[viewController] direction:direction animated:YES completion:nil];
@@ -154,7 +205,7 @@
             }
         }
     }
-    _curIndex = index;
+    _currentIndex = index;
 }
 
 @end

@@ -17,11 +17,7 @@
 @property (nonatomic, weak) id<PBSwipeControllerDelegate> swipeDelegate;
 @property (nonatomic, strong) NSArray *pagesNameArray;
 @property (nonatomic, strong) NSArray *pageDataArray;
-@property (nonatomic) NSInteger curIndex;
-@property (nonatomic) UIScrollView *pageScrollView;
-@property (nonatomic) NSInteger currentIndex;
-@property (nonatomic) BOOL boolOnce;
-@property (nonatomic, strong)UIPageViewController *pageController;
 - (ChildViewController *)viewControllerAtIndex:(NSUInteger)index;
 -(void)gotoPage:(int)index;
+-(UIScrollView*)addInitialObjects;
 @end

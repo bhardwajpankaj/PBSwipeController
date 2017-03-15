@@ -30,31 +30,12 @@
     dataArray = [[NSMutableArray alloc]initWithObjects:array1,array2,array3,array4,array5, nil];
     
     [self addInitialObjects];
-    [self setupSelector];
     
 }
 -(void)addInitialObjects{
     
     // Add Scroolable object in section header
     self.currentPageIndex = 0;
-    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width,40)];
-    _scrollView.backgroundColor = [UIColor colorWithRed:30.0f/255.0f green:144.0f/255.0f blue:255.0f/255.0f alpha:1];
-    for (int i = 0; i<HeadingArray.count; i++) {
-        UIButton  *button = [[UIButton alloc]init];
-        button.frame = CGRectMake(i*100, 0, 100, 40);
-        [_scrollView addSubview:button];
-        button.tag = i;
-        button.backgroundColor = [UIColor clearColor];
-        [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitle:[HeadingArray objectAtIndex:i] forState:UIControlStateNormal];
-        button.titleLabel.textColor = [UIColor blackColor];
-    }
-    CGRect contentRect = CGRectZero;
-    for (UIView *view in _scrollView.subviews) {
-        contentRect = CGRectUnion(contentRect, view.frame);
-    }
-    _scrollView.contentSize = contentRect.size;
-    
     // Page view controller for swipeable view
     UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     navigationController = [[PBSwipeController alloc]initWithRootViewController:pageController];
@@ -63,12 +44,8 @@
     [navigationController didMoveToParentViewController:self];
 }
 -(void)swipeAtIndex:(int)index{
-    [self controllerSwipeAtIndex:index];
-}
--(void)tapSegmentButtonAction:(UIButton *)button {
-    self.currentPageIndex = button.tag;
-    [navigationController gotoPage:self.currentPageIndex];
-    [self animateScrollHeader];
+    self.currentPageIndex = index;
+    [self animateTableHeader];
 }
 
 -(float)labelWidthForText:(NSString*)text fontName:(NSString*)fontName fontSize:(float)size{
@@ -78,35 +55,18 @@
     return textSize.width;
 }
 
--(void)animateScrollHeader{
+-(void)animateTableHeader{
     [self.mytableView beginUpdates];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     [self.mytableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
     [self.mytableView endUpdates];
-    
-    NSInteger xCoor = self.currentPageIndex * 100;
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         _buttonBar.frame = CGRectMake(xCoor, _buttonBar.frame.origin.y, _buttonBar.frame.size.width, _buttonBar.frame.size.height);
-                     }
-                     completion:^(BOOL finished){
-                         [_scrollView scrollRectToVisible:_buttonBar.frame animated:YES];
-                     }];
-    [UIView commitAnimations];
-}
-
--(void)setupSelector {
-    _buttonBar = [[UIView alloc]initWithFrame:CGRectMake(0, 36,100, 4)];
-    _buttonBar.backgroundColor = [UIColor orangeColor];
-    _buttonBar.alpha = 0.8;
-    [_scrollView addSubview:_buttonBar];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     // create the parent view that will hold header Label
     UIView* customView = [[UIView alloc] init];
     if(section == 1){
-        [customView addSubview:_scrollView];
+        [customView addSubview:[navigationController addInitialObjects]];
     }
     [customView setAutoresizingMask:UIViewAutoresizingNone];
     customView.userInteractionEnabled = YES;
@@ -172,11 +132,6 @@
         [cell1.contentView addSubview:navigationController.view];
     }
     return cell1;
-}
-
--(void)controllerSwipeAtIndex:(int)index{
-    self.currentPageIndex = index;
-    [self animateScrollHeader];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
