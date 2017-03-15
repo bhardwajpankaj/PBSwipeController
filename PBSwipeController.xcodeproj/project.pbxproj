@@ -14,8 +14,8 @@
 		181166741E6E9FEA00A54AAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181166731E6E9FEA00A54AAA /* Assets.xcassets */; };
 		181166771E6E9FEA00A54AAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181166751E6E9FEA00A54AAA /* LaunchScreen.storyboard */; };
 		181166801E6EA02D00A54AAA /* PBSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811667F1E6EA02D00A54AAA /* PBSwipeController.m */; };
-		181166841E6EA06D00A54AAA /* ChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181166821E6EA06D00A54AAA /* ChildViewController.m */; };
-		181166851E6EA06D00A54AAA /* ChildViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181166831E6EA06D00A54AAA /* ChildViewController.xib */; };
+		181166841E6EA06D00A54AAA /* PBSwipeChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181166821E6EA06D00A54AAA /* PBSwipeChildViewController.m */; };
+		181166851E6EA06D00A54AAA /* PBSwipeChildViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181166831E6EA06D00A54AAA /* PBSwipeChildViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +31,9 @@
 		181166781E6E9FEB00A54AAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1811667E1E6EA02D00A54AAA /* PBSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSwipeController.h; sourceTree = "<group>"; };
 		1811667F1E6EA02D00A54AAA /* PBSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSwipeController.m; sourceTree = "<group>"; };
-		181166811E6EA06D00A54AAA /* ChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildViewController.h; sourceTree = "<group>"; };
-		181166821E6EA06D00A54AAA /* ChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildViewController.m; sourceTree = "<group>"; };
-		181166831E6EA06D00A54AAA /* ChildViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildViewController.xib; sourceTree = "<group>"; };
+		181166811E6EA06D00A54AAA /* PBSwipeChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSwipeChildViewController.h; sourceTree = "<group>"; };
+		181166821E6EA06D00A54AAA /* PBSwipeChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSwipeChildViewController.m; sourceTree = "<group>"; };
+		181166831E6EA06D00A54AAA /* PBSwipeChildViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PBSwipeChildViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +77,9 @@
 				181166671E6E9FEA00A54AAA /* Supporting Files */,
 				1811667E1E6EA02D00A54AAA /* PBSwipeController.h */,
 				1811667F1E6EA02D00A54AAA /* PBSwipeController.m */,
-				181166811E6EA06D00A54AAA /* ChildViewController.h */,
-				181166821E6EA06D00A54AAA /* ChildViewController.m */,
-				181166831E6EA06D00A54AAA /* ChildViewController.xib */,
+				181166811E6EA06D00A54AAA /* PBSwipeChildViewController.h */,
+				181166821E6EA06D00A54AAA /* PBSwipeChildViewController.m */,
+				181166831E6EA06D00A54AAA /* PBSwipeChildViewController.xib */,
 			);
 			path = PBSwipeController;
 			sourceTree = "<group>";
@@ -153,7 +153,7 @@
 				181166771E6E9FEA00A54AAA /* LaunchScreen.storyboard in Resources */,
 				181166741E6E9FEA00A54AAA /* Assets.xcassets in Resources */,
 				181166721E6E9FEA00A54AAA /* Main.storyboard in Resources */,
-				181166851E6EA06D00A54AAA /* ChildViewController.xib in Resources */,
+				181166851E6EA06D00A54AAA /* PBSwipeChildViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +166,7 @@
 			files = (
 				181166801E6EA02D00A54AAA /* PBSwipeController.m in Sources */,
 				1811666F1E6E9FEA00A54AAA /* ViewController.m in Sources */,
-				181166841E6EA06D00A54AAA /* ChildViewController.m in Sources */,
+				181166841E6EA06D00A54AAA /* PBSwipeChildViewController.m in Sources */,
 				1811666C1E6E9FEA00A54AAA /* AppDelegate.m in Sources */,
 				181166691E6E9FEA00A54AAA /* main.m in Sources */,
 			);
@@ -323,6 +323,7 @@
 				1811667D1E6E9FEB00A54AAA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

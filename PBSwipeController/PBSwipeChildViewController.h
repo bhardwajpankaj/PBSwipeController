@@ -1,5 +1,5 @@
 //
-//  ChildViewController.h
+//  PBSwipeChildViewController.h
 //  PBSwipeController
 //
 //  Created by Pankaj Bhardwaj on 07/03/17.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChildViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+@interface PBSwipeChildViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     IBOutlet UITableView *tableview;
 }
 -(void)reloadData:(NSArray*)array;

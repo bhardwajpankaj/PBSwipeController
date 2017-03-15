@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ChildViewController.h"
+#import "PBSwipeChildViewController.h"
 
 @protocol PBSwipeControllerDelegate <NSObject>
 -(void)swipeAtIndex:(int)index;
@@ -17,7 +17,7 @@
 @property (nonatomic, weak) id<PBSwipeControllerDelegate> swipeDelegate;
 @property (nonatomic, strong) NSArray *pagesNameArray;
 @property (nonatomic, strong) NSArray *pageDataArray;
-- (ChildViewController *)viewControllerAtIndex:(NSUInteger)index;
+- (PBSwipeChildViewController *)viewControllerAtIndex:(NSUInteger)index;
 -(void)gotoPage:(int)index;
 -(UIScrollView*)addInitialObjects;
 @end

@@ -1,18 +1,18 @@
 //
-//  ChildViewController.m
+//  PBSwipeChildViewController.m
 //  PBSwipeController
 //
 //  Created by Pankaj Bhardwaj on 07/03/17.
 //  Copyright © 2017 Pankaj Bhardwaj. All rights reserved.
 //
 
-#import "ChildViewController.h"
+#import "PBSwipeChildViewController.h"
 
-@interface ChildViewController ()
+@interface PBSwipeChildViewController ()
 
 @end
 
-@implementation ChildViewController
+@implementation PBSwipeChildViewController
 {
     NSArray *dataArray;
 }

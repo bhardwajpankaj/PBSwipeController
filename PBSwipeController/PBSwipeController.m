@@ -18,7 +18,7 @@
 
 @implementation PBSwipeController
 {
-    ChildViewController * pageContentViewController;
+    PBSwipeChildViewController * pageContentViewController;
     NSMutableArray *pageControllerArray;
     NSMutableArray *viewControllersAr;
 }
@@ -26,7 +26,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) { 
+    if (self) {
         // Custom initialization
     }
     return self;
@@ -42,7 +42,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     if (!self.boolOnce) {
         [self initiatPageController];
-
         self.boolOnce = YES;
     }
 }
@@ -94,7 +93,7 @@
                          [_scrollView scrollRectToVisible:_buttonBar.frame animated:YES];
                      }];
     [UIView commitAnimations];
-
+    
 }
 -(void)setupSelector {
     _buttonBar = [[UIView alloc]initWithFrame:CGRectMake(0, 36,100, 4)];
@@ -108,7 +107,7 @@
 
 #pragma mark - Page View Controller Data Source
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    NSUInteger index = ((ChildViewController*) viewController).view.tag;
+    NSUInteger index = ((PBSwipeChildViewController*) viewController).view.tag;
     
     if ((index == NSNotFound) || (index == 0)) {
         return nil;
@@ -118,7 +117,7 @@
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    NSUInteger index = ((ChildViewController*) viewController).view.tag;
+    NSUInteger index = ((PBSwipeChildViewController*) viewController).view.tag;
     
     if (index == NSNotFound) {
         return nil;
@@ -127,21 +126,21 @@
     return [self viewControllerAtIndex:index];
 }
 
-- (ChildViewController *)viewControllerAtIndex:(NSUInteger)index
+- (PBSwipeChildViewController *)viewControllerAtIndex:(NSUInteger)index
 {
     if (([_pagesNameArray count] == 0) || (index >= [_pagesNameArray count])) {
         return nil;
     }
     if (!pageContentViewController) {
-        pageContentViewController = [[ChildViewController alloc]init];
+        pageContentViewController = [[PBSwipeChildViewController alloc]init];
         pageContentViewController.view.tag = index;
     }else
     {
         if (![pageContentViewController.view viewWithTag:index]) {
-            pageContentViewController = [[ChildViewController alloc]init];
+            pageContentViewController = [[PBSwipeChildViewController alloc]init];
             pageContentViewController.view.tag = index;
         }{
-            for (ChildViewController*vc in viewControllersAr) {
+            for (PBSwipeChildViewController*vc in viewControllersAr) {
                 if (vc.view.tag == index){
                     pageContentViewController = vc;
                     break;
@@ -162,13 +161,13 @@
 
 -(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
     if (completed) {
-        self.currentIndex = ((ChildViewController*)[pageViewController.viewControllers lastObject]).pageIndex;
+        self.currentIndex = ((PBSwipeChildViewController*)[pageViewController.viewControllers lastObject]).pageIndex;
         [self.swipeDelegate swipeAtIndex:self.currentIndex];
         [self animateScroller];
     }
 }
 -(void)gotoPage:(int)index{
-    ChildViewController *viewController = [self viewControllerAtIndex:index];
+    PBSwipeChildViewController *viewController = [self viewControllerAtIndex:index];
     
     UIPageViewControllerNavigationDirection direction;
     if(_currentIndex <= index){
